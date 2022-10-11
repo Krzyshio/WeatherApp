@@ -49,10 +49,10 @@ public class WeatherService {
         builder.setScheme(PROTOCOL);
         builder.setHost(HOST);
         builder.setPath(FORECAST_PATH);
-        builder.addParameter(RequestLabels.LATITUDE.toString(), LATITUDE);
-        builder.addParameter(RequestLabels.LONGITUDE.toString(), LONGITUDE);
-        builder.addParameter(RequestLabels.UNITS.toString(), UNITS);
-        builder.addParameter(RequestLabels.APP_ID.toString(), appId);
+        builder.addParameter(RequestLabel.LATITUDE.toString(), LATITUDE);
+        builder.addParameter(RequestLabel.LONGITUDE.toString(), LONGITUDE);
+        builder.addParameter(RequestLabel.UNITS.toString(), UNITS);
+        builder.addParameter(RequestLabel.APP_ID.toString(), appId);
 
         try {
             url = builder.build().toURL();

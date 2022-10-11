@@ -1,6 +1,6 @@
 package com.company;
 
-public enum RequestLabels {
+public enum RequestLabel {
     LATITUDE("lat"),
     LONGITUDE("lon"),
     UNITS("units"),
@@ -9,7 +9,7 @@ public enum RequestLabels {
 
     private final String text;
 
-    RequestLabels(final String text) {
+    RequestLabel(final String text) {
         this.text = text;
     }
 
