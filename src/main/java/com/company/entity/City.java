@@ -1,5 +1,5 @@
 
-package com.company;
+package com.company.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -26,7 +26,7 @@ public class City {
     @JsonProperty("name")
     private String name;
     @JsonProperty("coord")
-    private Coord coord;
+    private Coordinate coord;
     @JsonProperty("country")
     private String country;
     @JsonProperty("population")
@@ -59,13 +59,13 @@ public class City {
     }
 
     @JsonProperty("coord")
-    public Coord getCoord() {
+    public Coordinate getCoord() {
         return coord;
     }
 
     @JsonProperty("coord")
-    public void setCoord(Coord coord) {
-        this.coord = coord;
+    public void setCoord(Coordinate coordinate) {
+        this.coord = coordinate;
     }
 
     @JsonProperty("country")

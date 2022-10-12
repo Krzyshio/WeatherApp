@@ -1,5 +1,5 @@
 
-package com.company;
+package com.company.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,7 +13,7 @@ import javax.annotation.processing.Generated;
         "lon"
 })
 @Generated("jsonschema2pojo")
-public class Coord {
+public class Coordinate {
 
     @JsonProperty("lat")
     private Double lat;
