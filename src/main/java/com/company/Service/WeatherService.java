@@ -1,5 +1,6 @@
-package com.company;
+package com.company.Service;
 
+import com.company.RequestLabel;
 import org.apache.http.client.utils.URIBuilder;
 
 import java.io.FileInputStream;
