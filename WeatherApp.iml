@@ -46,5 +46,6 @@
     <orderEntry type="library" name="Maven: com.alibaba:fastjson:2.0.14" level="project" />
     <orderEntry type="library" name="Maven: com.alibaba.fastjson2:fastjson2-extension:2.0.14" level="project" />
     <orderEntry type="library" name="Maven: com.alibaba.fastjson2:fastjson2:2.0.14" level="project" />
+    <orderEntry type="library" name="Maven: com.googlecode.lanterna:lanterna:3.1.1" level="project" />
   </component>
 </module>

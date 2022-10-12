@@ -1,4 +1,4 @@
-package com.company;
+package com.company.commons;
 
 import com.company.entity.City;
 import com.company.entity.Forecast;
