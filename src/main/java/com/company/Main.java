@@ -12,5 +12,6 @@ public class Main {
         String jsonString = weatherService.fetchForecast();
 
         System.out.println(Arrays.toString(JsonParser.parseForecast(jsonString)));
+        System.out.println(JsonParser.parseCity(jsonString));
     }
 }

@@ -1,5 +1,7 @@
 package com.company;
 
+import com.company.entity.City;
+import com.company.entity.Coordinate;
 import com.company.entity.Forecast;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Assertions;
@@ -11,6 +13,11 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
 class JsonParserTest {
+    private final InputStream inStream = new FileInputStream("src/test/testResources/example_forecast_response.json");
+    private final String response = IOUtils.toString(inStream, StandardCharsets.UTF_8.name());
+
+    JsonParserTest() throws IOException {
+    }
 
     @Test
     void parseNullForecast() {
@@ -34,10 +41,7 @@ class JsonParserTest {
     }
 
     @Test
-    void parseForecastFromExampleCorrectResponse() throws IOException {
-
-        InputStream inStream = new FileInputStream("src/test/testResources/example_forecast_response.json");
-        String response = IOUtils.toString(inStream, StandardCharsets.UTF_8.name());
+    void parseForecastFromExampleCorrectResponse() {
 
         Forecast[] forecasts = JsonParser.parseForecast(response);
         Assertions.assertNotNull(forecasts);
@@ -51,5 +55,38 @@ class JsonParserTest {
         Assertions.assertNotNull(forecasts[0].getVisibility());
         Assertions.assertNotNull(forecasts[0].getWeather());
         Assertions.assertNotNull(forecasts[0].getWind());
+    }
+
+    @Test
+    void parseNullCity() {
+        City city = JsonParser.parseCity(null);
+        Assertions.assertNotNull(city);
+    }
+
+    @Test
+    void parseEmptyCity() {
+        City city = JsonParser.parseCity("");
+        Assertions.assertNotNull(city);
+    }
+
+    @Test
+    void parseResponseFromCorrectJsonButWithoutCityKey() {
+        City city = JsonParser.parseCity("{\"name\": \"Krzysztof Grabowski\"}");
+        Assertions.assertNotNull(city);
+    }
+
+    @Test
+    void parseCityFromExampleCorrectResponse() {
+
+        City city = JsonParser.parseCity(response);
+        Assertions.assertNotNull(city);
+        Assertions.assertEquals(city.getId(), 3163858);
+        Assertions.assertEquals(city.getName(), "Zocca");
+        Assertions.assertEquals(city.getCoord(), new Coordinate(44.34,10.99));
+        Assertions.assertEquals(city.getCountry(), "IT");
+        Assertions.assertEquals(city.getPopulation(), 4593);
+        Assertions.assertEquals(city.getTimezone(), 7200);
+        Assertions.assertEquals(city.getSunrise(), 1665552403);
+        Assertions.assertEquals(city.getSunset(), 1665592686);
     }
 }
