@@ -27,14 +27,14 @@ class JsonParserTest {
     }
 
     @Test
-    void parseForecastResponseWithoutListKey() {
+    void parseForecastResponseFromCorrectJsonButWithoutListKey() {
         Forecast[] forecasts = JsonParser.parseForecast("{\"name\": \"Krzysztof Grabowski\"}");
         Assertions.assertNotNull(forecasts);
         Assertions.assertEquals(forecasts.length, 0);
     }
 
     @Test
-    void parseExampleCorrectResponse() throws IOException {
+    void parseForecastFromExampleCorrectResponse() throws IOException {
 
         InputStream inStream = new FileInputStream("src/test/testResources/example_forecast_response.json");
         String response = IOUtils.toString(inStream, StandardCharsets.UTF_8.name());
@@ -42,5 +42,14 @@ class JsonParserTest {
         Forecast[] forecasts = JsonParser.parseForecast(response);
         Assertions.assertNotNull(forecasts);
         Assertions.assertEquals(forecasts.length, 40);
+        Assertions.assertNotNull(forecasts[0].getDt());
+        Assertions.assertNotNull(forecasts[0].getMain());
+        Assertions.assertNotNull(forecasts[0].getClouds());
+        Assertions.assertNotNull(forecasts[0].getPop());
+        Assertions.assertNotNull(forecasts[0].getDt_txt());
+        Assertions.assertNotNull(forecasts[0].getSys());
+        Assertions.assertNotNull(forecasts[0].getVisibility());
+        Assertions.assertNotNull(forecasts[0].getWeather());
+        Assertions.assertNotNull(forecasts[0].getWind());
     }
 }
