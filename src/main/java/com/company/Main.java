@@ -1,7 +1,8 @@
 package com.company;
 
-import com.alibaba.fastjson.JSON;
-import org.json.JSONObject;
+import com.company.service.WeatherService;
+
+import java.util.Arrays;
 
 public class Main {
 
@@ -9,10 +10,7 @@ public class Main {
         WeatherService weatherService = new WeatherService();
 
         String jsonString = weatherService.fetchForecast();
-        JSONObject obj = new JSONObject(jsonString);
-        String pageName = obj.getJSONObject("city").toString();
-        City city = JSON.parseObject(pageName, City.class);
 
-        System.out.println(city);
+        System.out.println(Arrays.toString(JsonParser.parseForecast(jsonString)));
     }
 }

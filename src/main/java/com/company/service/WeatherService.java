@@ -1,6 +1,6 @@
-package com.company.Service;
+package com.company.service;
 
-import com.company.RequestLabel;
+import com.company.requestLabel.Forecast;
 import org.apache.http.client.utils.URIBuilder;
 
 import java.io.FileInputStream;
@@ -50,10 +50,10 @@ public class WeatherService {
         builder.setScheme(PROTOCOL);
         builder.setHost(HOST);
         builder.setPath(FORECAST_PATH);
-        builder.addParameter(RequestLabel.LATITUDE.toString(), LATITUDE);
-        builder.addParameter(RequestLabel.LONGITUDE.toString(), LONGITUDE);
-        builder.addParameter(RequestLabel.UNITS.toString(), UNITS);
-        builder.addParameter(RequestLabel.APP_ID.toString(), appId);
+        builder.addParameter(Forecast.LATITUDE.toString(), LATITUDE);
+        builder.addParameter(Forecast.LONGITUDE.toString(), LONGITUDE);
+        builder.addParameter(Forecast.UNITS.toString(), UNITS);
+        builder.addParameter(Forecast.APP_ID.toString(), appId);
 
         try {
             url = builder.build().toURL();
