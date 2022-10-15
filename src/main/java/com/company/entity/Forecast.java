@@ -63,7 +63,7 @@ public class Forecast {
     }
 
     @JsonProperty("weather")
-    public java.util.List<WeatherDescription> getWeather() {
+    public List<WeatherDescription> getWeather() {
         return weather;
     }
 

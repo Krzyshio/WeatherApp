@@ -45,7 +45,7 @@ public class ViewManager {
 
     private static void initTerminal() throws IOException {
         textGraphics.setForegroundColor(TextColor.ANSI.GREEN_BRIGHT);
-        textGraphics.setBackgroundColor(TextColor.ANSI.BLACK);
+        terminal.setBackgroundColor(new TextColor.RGB(0, 83, 159));
         terminal.enterPrivateMode();
         terminal.clearScreen();
         terminal.setCursorVisible(false);
@@ -54,7 +54,7 @@ public class ViewManager {
     public void display() {
         try {
             initTerminal();
-
+            views.get(0).display();
             KeyStroke keyStroke = terminal.readInput();
 
             while (keyStroke.getKeyType() != KeyType.Escape) {

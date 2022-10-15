@@ -64,5 +64,4 @@ public class WeatherDescription {
     public void setIcon(String icon) {
         this.icon = icon;
     }
-
 }
