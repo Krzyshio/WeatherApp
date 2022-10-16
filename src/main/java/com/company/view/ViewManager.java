@@ -15,7 +15,6 @@ import java.util.Map;
 public class ViewManager {
     //todo enum refactor
     private static Integer actualView = 1;
-
     private static final Map<Integer, ViewModel> views = new HashMap<>();
 
     static {
@@ -31,8 +30,8 @@ public class ViewManager {
             .setTerminalEmulatorTitle(APP_TITLE)
             .setInitialTerminalSize(new TerminalSize(DEFAULT_TERMINAL_LENGTH, DEFAULT_TERMINAL_WIDTH));
 
-    private static Terminal terminal = null;
-    private static TextGraphics textGraphics = null;
+    private static Terminal terminal;
+    private static TextGraphics textGraphics;
 
     public ViewManager() {
         try {
@@ -45,7 +44,7 @@ public class ViewManager {
 
     private static void initTerminal() throws IOException {
         textGraphics.setForegroundColor(TextColor.ANSI.GREEN_BRIGHT);
-        terminal.setBackgroundColor(new TextColor.RGB(0, 83, 159));
+        terminal.setBackgroundColor(TextColor.ANSI.GREEN_BRIGHT);
         terminal.enterPrivateMode();
         terminal.clearScreen();
         terminal.setCursorVisible(false);

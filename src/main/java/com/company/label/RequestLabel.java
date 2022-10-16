@@ -1,6 +1,6 @@
-package com.company.requestLabel;
+package com.company.label;
 
-public enum Forecast {
+public enum RequestLabel {
     LATITUDE("lat"),
     LONGITUDE("lon"),
     UNITS("units"),
@@ -9,7 +9,7 @@ public enum Forecast {
 
     private final String text;
 
-    Forecast(final String text) {
+    RequestLabel(final String text) {
         this.text = text;
     }
 

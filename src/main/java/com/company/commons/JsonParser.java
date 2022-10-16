@@ -10,8 +10,8 @@ import org.json.JSONObject;
 
 
 public class JsonParser {
-    private final static String FORECAST_LABEL = "list";
-    private final static String CITY_LABEL = "city";
+    private static final String FORECAST_LABEL = "list";
+    private static final String CITY_LABEL = "city";
 
     public static Forecast[] parseForecast(String response) {
         Forecast[] forecasts;
@@ -51,5 +51,8 @@ public class JsonParser {
         }
 
         return city;
+    }
+
+    private JsonParser() {
     }
 }

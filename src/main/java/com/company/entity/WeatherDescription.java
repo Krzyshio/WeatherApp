@@ -1,18 +1,15 @@
 package com.company.entity;
 
+import com.company.icon.WeatherTypeIcon;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import javax.annotation.processing.Generated;
+import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-        "id",
-        "main",
-        "description",
-        "icon"
-})
+@JsonPropertyOrder({"id", "main", "description", "icon"})
 @Generated("jsonschema2pojo")
 public class WeatherDescription {
 
@@ -56,8 +53,20 @@ public class WeatherDescription {
     }
 
     @JsonProperty("icon")
-    public String getIcon() {
-        return icon;
+    public WeatherTypeIcon getIcon() {
+        System.out.println(icon);
+        Map<String, WeatherTypeIcon> iconsMapping = Map.of(
+                "01", WeatherTypeIcon.CLEAR_SKY,
+                "02", WeatherTypeIcon.FEW_CLOUDS,
+                "03", WeatherTypeIcon.SCATTERED_CLOUDS,
+                "04", WeatherTypeIcon.SHOWER_RAIN,
+                "09", WeatherTypeIcon.BROKEN_CLOUDS,
+                "10", WeatherTypeIcon.RAIN,
+                "11", WeatherTypeIcon.THUNDERSTORM,
+                "13", WeatherTypeIcon.SNOW,
+                "50", WeatherTypeIcon.MIST);
+
+        return iconsMapping.get(icon.substring(0, 2));
     }
 
     @JsonProperty("icon")

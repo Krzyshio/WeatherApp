@@ -34,4 +34,8 @@ public class CustomBoxDrawHelper {
         ViewManager.getTextGraphics().setCharacter(terminalPosition.getColumn() + width,terminalPosition.getRow() + height, '┘');
     }
 
+    private CustomBoxDrawHelper(){
+
+    }
+
 }

@@ -1,8 +1,6 @@
 package com.company.view;
 
 import com.googlecode.lanterna.SGR;
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TerminalSize;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -44,7 +42,6 @@ public class StartView extends ViewModel {
 
     @Override
     public void display() throws IOException {
-        System.out.println("1");
         setStartView();
         ViewManager.getTerminal().flush();
     }

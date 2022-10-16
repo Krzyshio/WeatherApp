@@ -5,6 +5,7 @@ import com.company.entity.Forecast;
 import com.company.service.WeatherService;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextColor;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.IOException;
@@ -13,7 +14,6 @@ import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.company.commons.CustomBoxDrawHelper.drawCustomBox;
-import static com.company.commons.Icon.drawIcon;
 
 public class WeatherOverview extends ViewModel {
     private static final Integer DEFAULT_BOX_HEIGHT = 15;
@@ -24,7 +24,7 @@ public class WeatherOverview extends ViewModel {
     private static final Integer FORECASTS_SECTION_PADDING = 10;
     private static final Integer DEFAULT_FORECASTS_SPACING = 20;
 
-    private final static WeatherService weatherService = new WeatherService();
+    private static final WeatherService weatherService = new WeatherService();
 
     private static final Forecast[] forecasts = Arrays.stream(JsonParser.parseForecast(weatherService.fetchForecast()))
             .limit(NUMBER_OF_DISPLAYED_FORECASTS)
@@ -59,7 +59,6 @@ public class WeatherOverview extends ViewModel {
                     terminalPosition.getRow()), forecast);
             i.getAndIncrement();
         });
-
     }
 
     private static void drawRowOverviewLabel(TerminalPosition terminalPosition, Integer hours) {
@@ -92,16 +91,19 @@ public class WeatherOverview extends ViewModel {
 
     private static void drawWeatherDetailsContainer(TerminalPosition terminalPosition, Forecast forecast) {
 
+        ViewManager.getTextGraphics().setForegroundColor(TextColor.ANSI.GREEN_BRIGHT);
         drawCustomBox(new TerminalPosition(terminalPosition.getColumn(), terminalPosition.getRow()), DEFAULT_BOX_HEIGHT, DEFAULT_SECTION_WIDTH);
         ViewManager.getTextGraphics().putCSIStyledString(new TerminalPosition(terminalPosition.getColumn() + 12,
                 terminalPosition.getRow() + 2), convertDtToDate(forecast.getDt()).toString());
-
         drawCustomBox(new TerminalPosition(terminalPosition.getColumn(), terminalPosition.getRow()), DEFAULT_BOX_HEIGHT / 5, DEFAULT_SECTION_WIDTH);
-        drawIcon(new TerminalPosition(terminalPosition.getColumn() + 2, terminalPosition.getRow() + 6));
-        drawWeatherDescription(new TerminalPosition(terminalPosition.getColumn() + 14, terminalPosition.getRow() + 6), forecast);
-        drawTemp(new TerminalPosition(terminalPosition.getColumn() + 14, terminalPosition.getRow() + 7), forecast);
-        drawPressure(new TerminalPosition(terminalPosition.getColumn() + 14, terminalPosition.getRow() + 8), forecast);
-        drawHumidity(new TerminalPosition(terminalPosition.getColumn() + 14, terminalPosition.getRow() + 9), forecast);
+
+        forecast.getWeather().get(0).getIcon().draw(new TerminalPosition(terminalPosition.getColumn() + 2, terminalPosition.getRow() + 6));
+
+        ViewManager.getTextGraphics().setForegroundColor(TextColor.ANSI.BLUE_BRIGHT);
+        drawWeatherDescription(new TerminalPosition(terminalPosition.getColumn() + 15, terminalPosition.getRow() + 6), forecast);
+        drawTemp(new TerminalPosition(terminalPosition.getColumn() + 15, terminalPosition.getRow() + 7), forecast);
+        drawPressure(new TerminalPosition(terminalPosition.getColumn() + 15, terminalPosition.getRow() + 8), forecast);
+        drawHumidity(new TerminalPosition(terminalPosition.getColumn() + 15, terminalPosition.getRow() + 9), forecast);
     }
 
 
