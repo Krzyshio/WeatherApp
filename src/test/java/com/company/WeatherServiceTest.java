@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class WeatherServiceTest {
 
-    WeatherService weatherService = new WeatherService("1", "1");
+    static WeatherService weatherService = new WeatherService("1", "1");
 
     @Test
     void shouldReturnNotEmptyValue() {

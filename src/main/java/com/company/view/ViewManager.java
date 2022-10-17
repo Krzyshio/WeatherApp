@@ -59,10 +59,9 @@ public class ViewManager {
             while (keyStroke.getKeyType() != KeyType.Escape) {
 
                 keyStroke = terminal.readInput();
-                views.get(actualView).display();
             }
 
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         } finally {
             if (terminal != null) {

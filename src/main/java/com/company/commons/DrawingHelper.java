@@ -3,12 +3,33 @@ package com.company.commons;
 import com.company.view.ViewManager;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class WeatherDrawingHelper {
+public class DrawingHelper {
+
+    public static void drawAsciiArt(TerminalPosition terminalPosition, String[] asciiArt) {
+
+        AtomicInteger i = new AtomicInteger();
+
+        Arrays.stream(asciiArt).forEach(line -> {
+            i.getAndIncrement();
+            ViewManager.getTextGraphics().putString(terminalPosition.getColumn(), terminalPosition.getRow() + i.get(), line, SGR.BOLD);
+        });
+    }
+
+    public static void drawTerminalOverlay() throws IOException {
+        ViewManager.getTextGraphics().setForegroundColor(TextColor.ANSI.GREEN_BRIGHT);
+
+        TerminalSize terminalSize = ViewManager.getTerminal().getTerminalSize();
+        ViewManager.getTextGraphics().drawRectangle(new TerminalPosition(0, 0), terminalSize, '█');
+        ViewManager.getTextGraphics().drawRectangle(new TerminalPosition(1, 1),
+                new TerminalSize(terminalSize.getColumns() - 1, terminalSize.getRows()), '█');
+    }
 
     public static void drawSomeBolts(TerminalPosition terminalPosition) {
         ViewManager.getTextGraphics().setForegroundColor(TextColor.ANSI.YELLOW_BRIGHT);
@@ -67,6 +88,6 @@ public class WeatherDrawingHelper {
                 });
     }
 
-    private WeatherDrawingHelper() {
+    private DrawingHelper() {
     }
 }

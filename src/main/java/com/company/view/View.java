@@ -4,5 +4,5 @@ import java.io.IOException;
 
 public interface View {
 
-    void display() throws IOException;
+    void display() throws IOException, InterruptedException;
 }
