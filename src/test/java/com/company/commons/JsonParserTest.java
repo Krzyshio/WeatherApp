@@ -1,6 +1,5 @@
 package com.company.commons;
 
-import com.company.commons.JsonParser;
 import com.company.entity.City;
 import com.company.entity.Coordinate;
 import com.company.entity.Forecast;
@@ -24,21 +23,21 @@ class JsonParserTest {
     void parseNullForecast() {
         Forecast[] forecasts = JsonParser.parseForecast(null);
         Assertions.assertNotNull(forecasts);
-        Assertions.assertEquals(forecasts.length, 0);
+        Assertions.assertEquals(0, forecasts.length);
     }
 
     @Test
     void parseEmptyForecast() {
         Forecast[] forecasts = JsonParser.parseForecast("");
         Assertions.assertNotNull(forecasts);
-        Assertions.assertEquals(forecasts.length, 0);
+        Assertions.assertEquals(0, forecasts.length);
     }
 
     @Test
     void parseForecastResponseFromCorrectJsonButWithoutListKey() {
         Forecast[] forecasts = JsonParser.parseForecast("{\"name\": \"Krzysztof Grabowski\"}");
         Assertions.assertNotNull(forecasts);
-        Assertions.assertEquals(forecasts.length, 0);
+        Assertions.assertEquals(0, forecasts.length);
     }
 
     @Test
@@ -46,7 +45,7 @@ class JsonParserTest {
 
         Forecast[] forecasts = JsonParser.parseForecast(response);
         Assertions.assertNotNull(forecasts);
-        Assertions.assertEquals(forecasts.length, 40);
+        Assertions.assertEquals(40, forecasts.length);
         Assertions.assertNotNull(forecasts[0].getDt());
         Assertions.assertNotNull(forecasts[0].getMain());
         Assertions.assertNotNull(forecasts[0].getClouds());
@@ -81,13 +80,13 @@ class JsonParserTest {
 
         City city = JsonParser.parseCity(response);
         Assertions.assertNotNull(city);
-        Assertions.assertEquals(city.getId(), 3163858);
-        Assertions.assertEquals(city.getName(), "Zocca");
-        Assertions.assertEquals(city.getCoord(), new Coordinate(44.34,10.99));
-        Assertions.assertEquals(city.getCountry(), "IT");
-        Assertions.assertEquals(city.getPopulation(), 4593);
-        Assertions.assertEquals(city.getTimezone(), 7200);
-        Assertions.assertEquals(city.getSunrise(), 1665552403);
-        Assertions.assertEquals(city.getSunset(), 1665592686);
+        Assertions.assertEquals(3163858, city.getId());
+        Assertions.assertEquals("Zocca", city.getName());
+        Assertions.assertEquals(new Coordinate(44.34,10.99), city.getCoord());
+        Assertions.assertEquals("IT", city.getCountry());
+        Assertions.assertEquals(4593, city.getPopulation());
+        Assertions.assertEquals(7200, city.getTimezone());
+        Assertions.assertEquals(1665552403, city.getSunrise());
+        Assertions.assertEquals(1665592686, city.getSunset());
     }
 }

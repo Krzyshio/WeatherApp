@@ -7,11 +7,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class WeatherServiceTest {
 
-    WeatherService weatherService = new WeatherService();
+    WeatherService weatherService = new WeatherService("1", "1");
 
     @Test
-    public void shouldReturnNotEmptyValue() {
+    void shouldReturnNotEmptyValue() {
         assertNotNull(weatherService.fetchForecast());
-        assertNotEquals(weatherService.fetchForecast(), "");
+        assertNotEquals("", weatherService.fetchForecast());
     }
 }

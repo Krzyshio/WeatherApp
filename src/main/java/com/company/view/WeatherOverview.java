@@ -24,7 +24,7 @@ public class WeatherOverview extends ViewModel {
     private static final Integer FORECASTS_SECTION_PADDING = 10;
     private static final Integer DEFAULT_FORECASTS_SPACING = 20;
 
-    private static final WeatherService weatherService = new WeatherService();
+    private static final WeatherService weatherService = new WeatherService("1", "1");
 
     private static final Forecast[] forecasts = Arrays.stream(JsonParser.parseForecast(weatherService.fetchForecast()))
             .limit(NUMBER_OF_DISPLAYED_FORECASTS)

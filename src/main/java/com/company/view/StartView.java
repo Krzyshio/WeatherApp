@@ -34,15 +34,11 @@ public class StartView extends ViewModel {
         });
     }
 
-    private static void setStartView() throws IOException {
+    @Override
+    public void display() throws IOException {
 
         ViewManager.getTerminal().clearScreen();
         drawHeader();
-    }
-
-    @Override
-    public void display() throws IOException {
-        setStartView();
         ViewManager.getTerminal().flush();
     }
 }
