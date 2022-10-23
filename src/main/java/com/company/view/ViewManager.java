@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.googlecode.lanterna.terminal.swing.SwingTerminalFontConfiguration.getDefaultOfSize;
+
 public class ViewManager {
     //todo enum refactor
     private static Integer actualView = 1;
@@ -25,9 +27,10 @@ public class ViewManager {
     private static final String APP_TITLE = "Weather App";
     private static final Integer DEFAULT_TERMINAL_LENGTH = 201;
     private static final Integer DEFAULT_TERMINAL_WIDTH = 101;
-
+    private static final Integer DEFAULT_TERMINAL_FONT_SIZE = 7;
     private static final DefaultTerminalFactory defaultTerminalFactory = new DefaultTerminalFactory()
             .setTerminalEmulatorTitle(APP_TITLE)
+            .setTerminalEmulatorFontConfiguration(getDefaultOfSize(DEFAULT_TERMINAL_FONT_SIZE))
             .setInitialTerminalSize(new TerminalSize(DEFAULT_TERMINAL_LENGTH, DEFAULT_TERMINAL_WIDTH));
 
     private static Terminal terminal;
