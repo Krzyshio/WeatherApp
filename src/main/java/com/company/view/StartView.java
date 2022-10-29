@@ -22,8 +22,8 @@ public class StartView extends ViewModel {
     private static final Integer DEFAULT_HEADER_POSITION_Y = 3;
     private static final Integer DEFAULT_BUTTONS_PADDING = 10;
     private static final Integer DEFAULT_BUTTONS_START_POSITION = 40;
+    private static final Integer DEFAULT_ANIMATION_POSITION_Y = 30;
     private static Integer activeButton = 0;
-
     private static final Map<Integer, Button> buttons = new HashMap<>();
 
     private static final String[] HEADER = {
@@ -132,7 +132,7 @@ public class StartView extends ViewModel {
             ViewManager.getTerminal().clearScreen();
             drawAnimatedIcons(new TerminalPosition(0, 20), delta.getAndIncrement());
             ViewManager.getTextGraphics().setForegroundColor(TextColor.ANSI.GREEN_BRIGHT);
-            drawAsciiArt(new TerminalPosition((terminalSize.getColumns() - SELECT_OPTIONS_LABEL[0].length()) / 2, 30), SELECT_OPTIONS_LABEL);
+            drawAsciiArt(new TerminalPosition((terminalSize.getColumns() - SELECT_OPTIONS_LABEL[0].length()) / 2, DEFAULT_ANIMATION_POSITION_Y), SELECT_OPTIONS_LABEL);
             drawAsciiArt(new TerminalPosition((terminalSize.getColumns() - HEADER[0].length()) / 2, DEFAULT_HEADER_POSITION_Y), HEADER);
             ViewManager.getTextGraphics().setForegroundColor(TextColor.ANSI.GREEN_BRIGHT);
             drawTerminalOverlay();

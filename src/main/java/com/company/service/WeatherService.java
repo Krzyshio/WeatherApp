@@ -6,12 +6,10 @@ import org.apache.http.client.utils.URIBuilder;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Properties;
-import java.util.Scanner;
 
 public class WeatherService {
     private static final String PROTOCOL = "https";
@@ -21,18 +19,16 @@ public class WeatherService {
 
     private final String latitude;
     private final String longitude;
-
-    private final StringBuilder informationString = new StringBuilder();
     private final String appId;
-
-    private HttpURLConnection connection;
     private URL url;
-    private int responseCode;
 
     public WeatherService(String latitude, String longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.appId = readAppIdFromProperties();
+        if (appId == null || appId.isEmpty()) {
+            throw new EmptyApiKeyException();
+        }
     }
 
     private String readAppIdFromProperties() {
@@ -48,7 +44,7 @@ public class WeatherService {
         return prop.getProperty("apiKey");
     }
 
-    private void buildForecastUrl() {
+    private URL buildForecastUrl() {
         URIBuilder builder = new URIBuilder();
         builder.setScheme(PROTOCOL);
         builder.setHost(HOST);
@@ -63,49 +59,12 @@ public class WeatherService {
         } catch (MalformedURLException | URISyntaxException e) {
             e.printStackTrace();
         }
-    }
 
-    private Boolean isConnectionCorrect() throws IOException {
-        responseCode = connection.getResponseCode();
-        return responseCode == 200;
-    }
-
-    private void readResponse() throws IOException {
-        Scanner scanner = new Scanner(url.openStream());
-
-        while (scanner.hasNext()) {
-            informationString.append(scanner.nextLine());
-        }
-        scanner.close();
-    }
-
-    private void connectionErrorHandler() {
-        throw new RuntimeException("HttpResponseCode: " + responseCode);
+        return url;
     }
 
     public String fetchForecast() {
-
-        buildForecastUrl();
-
-        if (url != null) {
-            try {
-                connection = (HttpURLConnection) url.openConnection();
-
-                connection.setRequestMethod("GET");
-                connection.connect();
-
-                if (Boolean.TRUE.equals(isConnectionCorrect())) {
-                    readResponse();
-                } else {
-                    connectionErrorHandler();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        } else {
-            return "{}";
-        }
-        return informationString.toString();
+        URL forecastUrl = buildForecastUrl();
+        return SendGetRequestService.sendGetRequestAndGetResponse(forecastUrl);
     }
 }
