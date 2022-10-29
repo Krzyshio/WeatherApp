@@ -25,6 +25,9 @@ public class StartView extends ViewModel {
     private static final Integer DEFAULT_SELECT_OPTIONS_LABEL_POSITION_Y = 40;
     private static Integer activeButton = 0;
     private static final Map<Integer, Button> buttons = new HashMap<>();
+    private static boolean isStartViewActive = true;
+    private static KeyStroke actualKey;
+
 
     private static final String[] HEADER = {
             " ▄         ▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄         ▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄          ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄",
@@ -84,7 +87,7 @@ public class StartView extends ViewModel {
 
         buttons.put(0, new Button(WEATHER_DETAILS_LABEL, new WeatherOverview()));
         buttons.put(1, new Button(WEATHER_CHART_LABEL, new WeatherOverview()));
-        buttons.put(2, new Button(SETTINGS_LABEL, new WeatherOverview()));
+        buttons.put(2, new Button(SETTINGS_LABEL, new SettingsView()));
         buttons.put(3, new Button(EXIT_LABEL, new WeatherOverview()));
 
         refreshButtonsPositions(terminalSize);
@@ -137,13 +140,20 @@ public class StartView extends ViewModel {
         }
     }
 
+    private static void checkIfViewShouldBeActive() {
+        if(actualKey != null && (actualKey.getKeyType().equals(KeyType.Escape) || isExitButtonSelected())) {
+            isStartViewActive = false;
+        }
+    }
+    private static boolean isExitButtonSelected() {
+        return actualKey != null && activeButton.equals(3) && actualKey.getKeyType().equals(KeyType.Enter);
+    }
+
     @Override
     public void display() throws IOException, InterruptedException {
-        KeyStroke keyStroke = ViewManager.getTerminal().readInput();
         AtomicInteger delta = new AtomicInteger();
 
-        while (keyStroke.getKeyType() != KeyType.Enter) {
-            KeyStroke actualKey = ViewManager.getTerminal().pollInput();
+        while (isStartViewActive) {
             TerminalSize terminalSize = ViewManager.getTerminal().getTerminalSize();
             ViewManager.getTerminal().clearScreen();
             drawAnimatedIcons(new TerminalPosition(0, 25), delta.getAndIncrement());
@@ -155,6 +165,8 @@ public class StartView extends ViewModel {
             drawMenuButtons(terminalSize);
             manageActiveButtonPosition(actualKey);
             manageMenuClickEvent(actualKey);
+            actualKey = ViewManager.getTerminal().pollInput();
+            checkIfViewShouldBeActive();
             ViewManager.getTerminal().flush();
             //todo refactor busy-waiting
             Thread.sleep(100);

@@ -3,8 +3,6 @@ package com.company.view;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 
@@ -55,13 +53,6 @@ public class ViewManager {
         try {
             initTerminal();
             views.get(0).display();
-            KeyStroke keyStroke = terminal.readInput();
-
-            while (keyStroke.getKeyType() != KeyType.Escape) {
-
-                keyStroke = terminal.readInput();
-            }
-
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         } finally {
