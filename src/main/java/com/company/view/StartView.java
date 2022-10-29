@@ -21,8 +21,8 @@ public class StartView extends ViewModel {
 
     private static final Integer DEFAULT_HEADER_POSITION_Y = 3;
     private static final Integer DEFAULT_BUTTONS_PADDING = 10;
-    private static final Integer DEFAULT_BUTTONS_START_POSITION = 40;
-    private static final Integer DEFAULT_ANIMATION_POSITION_Y = 30;
+    private static final Integer DEFAULT_BUTTONS_START_POSITION = 55;
+    private static final Integer DEFAULT_SELECT_OPTIONS_LABEL_POSITION_Y = 40;
     private static Integer activeButton = 0;
     private static final Map<Integer, Button> buttons = new HashMap<>();
 
@@ -56,6 +56,14 @@ public class StartView extends ViewModel {
             " ███ ███  ███████ ██   ██    ██    ██   ██ ███████ ██   ██     ██████  ███████    ██    ██   ██ ██ ███████ ███████"
     };
 
+    private static final String[] WEATHER_CHART_LABEL = {
+            "██     ██ ███████  █████  ████████ ██   ██ ███████ ██████       ██████ ██   ██  █████  ██████  ████████",
+            "██     ██ ██      ██   ██    ██    ██   ██ ██      ██   ██     ██      ██   ██ ██   ██ ██   ██    ██   ",
+            "██  █  ██ █████   ███████    ██    ███████ █████   ██████      ██      ███████ ███████ ██████     ██   ",
+            "██ ███ ██ ██      ██   ██    ██    ██   ██ ██      ██   ██     ██      ██   ██ ██   ██ ██   ██    ██   ",
+            " ███ ███  ███████ ██   ██    ██    ██   ██ ███████ ██   ██      ██████ ██   ██ ██   ██ ██   ██    ██   "
+    };
+
     private static final String[] SETTINGS_LABEL = {
             "███████ ███████ ████████ ████████ ██ ███    ██  ██████  ███████",
             "██      ██         ██       ██    ██ ████   ██ ██       ██     ",
@@ -64,16 +72,24 @@ public class StartView extends ViewModel {
             "███████ ███████    ██       ██    ██ ██   ████  ██████  ███████"
     };
 
+    private static final String[] EXIT_LABEL = {
+            "███████ ██   ██ ██ ████████",
+            "██       ██ ██  ██    ██   ",
+            "█████     ███   ██    ██   ",
+            "██       ██ ██  ██    ██   ",
+            "███████ ██   ██ ██    ██   "
+    };
+
     private static void drawMenuButtons(TerminalSize terminalSize) {
 
         buttons.put(0, new Button(WEATHER_DETAILS_LABEL, new WeatherOverview()));
-        buttons.put(1, new Button(SETTINGS_LABEL, new WeatherOverview()));
-        buttons.put(2, new Button(WEATHER_DETAILS_LABEL, new WeatherOverview()));
-        buttons.put(3, new Button(SETTINGS_LABEL, new WeatherOverview()));
+        buttons.put(1, new Button(WEATHER_CHART_LABEL, new WeatherOverview()));
+        buttons.put(2, new Button(SETTINGS_LABEL, new WeatherOverview()));
+        buttons.put(3, new Button(EXIT_LABEL, new WeatherOverview()));
 
         refreshButtonsPositions(terminalSize);
         buttons.values().forEach(Button::display);
-        buttons.get(activeButton).fill();
+        buttons.get(activeButton).markButton();
     }
 
     public static void refreshButtonsPositions(TerminalSize terminalSize) {
@@ -130,9 +146,9 @@ public class StartView extends ViewModel {
             KeyStroke actualKey = ViewManager.getTerminal().pollInput();
             TerminalSize terminalSize = ViewManager.getTerminal().getTerminalSize();
             ViewManager.getTerminal().clearScreen();
-            drawAnimatedIcons(new TerminalPosition(0, 20), delta.getAndIncrement());
+            drawAnimatedIcons(new TerminalPosition(0, 25), delta.getAndIncrement());
             ViewManager.getTextGraphics().setForegroundColor(TextColor.ANSI.GREEN_BRIGHT);
-            drawAsciiArt(new TerminalPosition((terminalSize.getColumns() - SELECT_OPTIONS_LABEL[0].length()) / 2, DEFAULT_ANIMATION_POSITION_Y), SELECT_OPTIONS_LABEL);
+            drawAsciiArt(new TerminalPosition((terminalSize.getColumns() - SELECT_OPTIONS_LABEL[0].length()) / 2, DEFAULT_SELECT_OPTIONS_LABEL_POSITION_Y), SELECT_OPTIONS_LABEL);
             drawAsciiArt(new TerminalPosition((terminalSize.getColumns() - HEADER[0].length()) / 2, DEFAULT_HEADER_POSITION_Y), HEADER);
             ViewManager.getTextGraphics().setForegroundColor(TextColor.ANSI.GREEN_BRIGHT);
             drawTerminalOverlay();
@@ -145,4 +161,3 @@ public class StartView extends ViewModel {
         }
     }
 }
-

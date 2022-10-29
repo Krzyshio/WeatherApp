@@ -2,9 +2,7 @@ package com.company.button;
 
 import com.company.commons.CustomBoxDrawHelper;
 import com.company.view.View;
-import com.company.view.ViewManager;
 import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TerminalSize;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -23,13 +21,11 @@ public class Button {
     }
 
     public void display() {
-        CustomBoxDrawHelper.drawCustomBox(terminalPosition, label.length + 1, getLabelLength() + 3);
         drawAsciiArt(new TerminalPosition(terminalPosition.getColumn() + 2, terminalPosition.getRow()), label);
     }
 
-    public void fill() {
-        ViewManager.getTextGraphics().fillRectangle(terminalPosition,
-                new TerminalSize(getLabelLength() + 4, label.length + 2), '█');
+    public void markButton() {
+        CustomBoxDrawHelper.drawCustomBox(terminalPosition, label.length + 1, getLabelLength() + 3);
     }
 
     public void click() throws IOException, InterruptedException {
