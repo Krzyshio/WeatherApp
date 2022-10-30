@@ -2,7 +2,6 @@ package com.company.button;
 
 import com.company.commons.Component;
 import com.company.commons.CustomBoxDrawHelper;
-import com.company.view.View;
 import com.company.view.ViewManager;
 import com.googlecode.lanterna.TerminalPosition;
 
@@ -15,11 +14,10 @@ import static com.company.view.ViewManager.getAppMainColour;
 import static com.company.view.ViewManager.getAppSecondColour;
 
 public class Button extends Component {
-    private final View view;
+    private Runnable action;
 
-    public Button(String[] label, View view) {
+    public Button(String[] label) {
         this.label = label;
-        this.view = view;
     }
 
     @Override
@@ -37,9 +35,14 @@ public class Button extends Component {
                 label.length + 1, getLabelLength() + 3);
     }
 
-    public void click() throws IOException, InterruptedException {
-        view.display();
+    private static void executeButtonAction(Runnable runnable) {
+        runnable.run();
     }
+
+    public void click() throws InterruptedException, IOException {
+        executeButtonAction(action);
+    }
+
 
     public Integer getLabelLength() {
         return Arrays.stream(label).max(Comparator.comparingInt(String::length)).get().length();
@@ -47,5 +50,9 @@ public class Button extends Component {
 
     public void setTerminalPosition(TerminalPosition terminalPosition) {
         this.terminalPosition = terminalPosition;
+    }
+
+    public void setAction(Runnable action) {
+        this.action = action;
     }
 }

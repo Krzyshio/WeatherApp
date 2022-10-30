@@ -1,6 +1,6 @@
 package com.company.view;
 
-import com.company.button.Button;
+import com.company.button.NavigateToViewButton;
 import com.company.icon.WeatherTypeIcon;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
@@ -24,7 +24,7 @@ public class StartView implements View {
     private static final Integer DEFAULT_BUTTONS_START_POSITION = 55;
     private static final Integer DEFAULT_SELECT_OPTIONS_LABEL_POSITION_Y = 40;
     private static Integer activeButton = 0;
-    private static final Map<Integer, Button> buttons = new HashMap<>();
+    private static final Map<Integer, NavigateToViewButton> buttons = new HashMap<>();
     private static boolean isStartViewActive = true;
     private static KeyStroke actualKey;
     private static final String[] HEADER = {
@@ -82,15 +82,15 @@ public class StartView implements View {
     };
 
     static {
-        buttons.put(0, new Button(WEATHER_DETAILS_LABEL, new WeatherOverview()));
-        buttons.put(1, new Button(WEATHER_CHART_LABEL, new WeatherOverview()));
-        buttons.put(2, new Button(SETTINGS_LABEL, new SettingsView()));
-        buttons.put(3, new Button(EXIT_LABEL, new WeatherOverview()));
+        buttons.put(0, new NavigateToViewButton(WEATHER_DETAILS_LABEL, new WeatherOverview()));
+        buttons.put(1, new NavigateToViewButton(WEATHER_CHART_LABEL, new WeatherOverview()));
+        buttons.put(2, new NavigateToViewButton(SETTINGS_LABEL, new SettingsView()));
+        buttons.put(3, new NavigateToViewButton(EXIT_LABEL, new WeatherOverview()));
     }
 
     private static void drawMenuButtons(TerminalSize terminalSize) {
         refreshButtonsPositions(terminalSize);
-        buttons.values().forEach(Button::display);
+        buttons.values().forEach(NavigateToViewButton::display);
         buttons.get(activeButton).mark();
     }
 

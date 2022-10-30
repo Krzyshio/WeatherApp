@@ -85,4 +85,8 @@ public class ColourPicker extends Component {
     public void setSelectedColour(TextColor.ANSI selectedColour) {
         this.selectedColour = selectedColour;
     }
+
+    public TextColor.ANSI getSelectedColour() {
+        return selectedColour;
+    }
 }

@@ -1,6 +1,7 @@
 package com.company.view;
 
 
+import com.company.button.Button;
 import com.company.colour.picker.ColourPicker;
 import com.company.commons.Component;
 import com.googlecode.lanterna.TerminalPosition;
@@ -54,9 +55,17 @@ public class SettingsView implements View {
             "  ____) |  __/ (_| (_) | | | | (_| | | (_| (_) | | (_) | |_| | |   ",
             " |_____/ \\___|\\___\\___/|_| |_|\\__,_|  \\___\\___/|_|\\___/ \\__,_|_|   ",
     };
+    private static final String[] SAVE_LABEL = {
+            " _____                                   _   _____     _ _   ",
+            "/  ___|                                 | | |  ___|   (_) |  ",
+            "\\ `--.  __ ___   _____    __ _ _ __   __| | | |____  ___| |_ ",
+            " `--. \\/ _` \\ \\ / / _ \\  / _` | '_ \\ / _` | |  __\\ \\/ / | __|",
+            "/\\__/ / (_| |\\ V /  __/ | (_| | | | | (_| | | |___>  <| | |_ ",
+            "\\____/ \\__,_| \\_/ \\___|  \\__,_|_| |_|\\__,_| \\____/_/\\_\\_|\\__|"
+    };
 
 
-    private static Map<Integer, Component> settingComponents = new HashMap<>();
+    private static final Map<Integer, Component> settingComponents = new HashMap<>();
 
     static {
         settingComponents.put(0, new ColourPicker(MAIN_COLOUR_SETTING_LABEL,
@@ -64,6 +73,22 @@ public class SettingsView implements View {
 
         settingComponents.put(1, new ColourPicker(SECOND_COLOUR_SETTING_LABEL,
                 new TerminalPosition(DEFAULT_OVERLAY_PADDING + DEFAULT_SETTINGS_PADDING, DEFAULT_OVERLAY_PADDING + DEFAULT_SETTINGS_PADDING + 10)));
+        settingComponents.put(2, new Button(SAVE_LABEL));
+    }
+
+    private static void setSaveButtonClickEvent() {
+        if (settingComponents.get(2) instanceof Button button) {
+            button.setAction(() -> {
+                isSettingsViewActive = false;
+                if (settingComponents.get(0) instanceof ColourPicker colourPicker) {
+                    ViewManager.setAppMainColour(colourPicker.getSelectedColour());
+                }
+                if (settingComponents.get(1) instanceof ColourPicker colourPicker) {
+                    ViewManager.setSecondColour(colourPicker.getSelectedColour());
+                }
+            });
+
+        }
     }
 
     private static void drawSettingsHeader() throws IOException {
@@ -116,6 +141,15 @@ public class SettingsView implements View {
         }
     }
 
+    private static void setSaveButtonPosition() throws IOException {
+        TerminalSize terminalSize = ViewManager.getTerminal().getTerminalSize();
+
+        Component saveButton = settingComponents.get(2);
+        if (saveButton instanceof Button button) {
+            button.setTerminalPosition(new TerminalPosition((terminalSize.getColumns() - SAVE_LABEL[0].length()) / 2, 70));
+        }
+    }
+
     private static void setDefaultPickersColours() {
         if (settingComponents.get(0) instanceof ColourPicker colourPicker)
             colourPicker.setSelectedColour(getAppMainColour());
@@ -123,10 +157,19 @@ public class SettingsView implements View {
             colourPicker.setSelectedColour(getAppSecondColour());
     }
 
+    private static void manageMenuClickEvent() throws IOException, InterruptedException {
+        if (actualKey == null)
+            return;
+        if (settingComponents.get(activeSetting) instanceof Button button && actualKey.getKeyType() == KeyType.Enter) {
+            button.click();
+        }
+    }
+
     private static void drawSettingsView() throws IOException, InterruptedException {
         setDefaultPickersColours();
         ViewManager.getTerminal().clearScreen();
         ViewManager.getTerminal().flush();
+        setSaveButtonClickEvent();
 
         while (isSettingsViewActive) {
             ViewManager.getTerminal().clearScreen();
@@ -134,15 +177,18 @@ public class SettingsView implements View {
             drawSettingsHeader();
             drawTerminalOverlay();
             drawSettingsOverlay();
+            setSaveButtonPosition();
             drawSettingComponents();
             manageActiveButtonPosition();
             manageColourChange();
+            manageMenuClickEvent();
             checkIfViewShouldBeActive();
             ViewManager.getTerminal().flush();
             //todo refactor busy-waiting
             Thread.sleep(100);
         }
         isSettingsViewActive = true;
+        activeSetting = 0;
     }
 
     @Override
