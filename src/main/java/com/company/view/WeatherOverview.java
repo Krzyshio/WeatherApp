@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.company.commons.CustomBoxDrawHelper.drawCustomBox;
 
-public class WeatherOverview extends ViewModel {
+public class WeatherOverview implements View {
     private static final Integer DEFAULT_BOX_HEIGHT = 15;
     private static final Integer DEFAULT_SECTION_WIDTH = 50;
     private static final Integer FORECASTS_IN_ROW = 4;

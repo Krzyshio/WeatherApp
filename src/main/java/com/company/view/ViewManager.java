@@ -13,7 +13,7 @@ import java.util.Map;
 import static com.googlecode.lanterna.terminal.swing.SwingTerminalFontConfiguration.getDefaultOfSize;
 
 public class ViewManager {
-    private static final Map<Integer, ViewModel> views = new HashMap<>();
+    private static final Map<Integer, View> views = new HashMap<>();
 
     static {
         views.put(0, new StartView());

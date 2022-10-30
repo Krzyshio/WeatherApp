@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static com.company.commons.DrawingHelper.drawAsciiArt;
 import static com.company.commons.DrawingHelper.drawTerminalOverlay;
 
-public class StartView extends ViewModel {
+public class StartView implements View{
 
     private static final Integer DEFAULT_HEADER_POSITION_Y = 3;
     private static final Integer DEFAULT_BUTTONS_PADDING = 10;
@@ -92,7 +92,7 @@ public class StartView extends ViewModel {
 
         refreshButtonsPositions(terminalSize);
         buttons.values().forEach(Button::display);
-        buttons.get(activeButton).markButton();
+        buttons.get(activeButton).mark();
     }
 
     public static void refreshButtonsPositions(TerminalSize terminalSize) {

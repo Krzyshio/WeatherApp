@@ -1,5 +1,6 @@
 package com.company.button;
 
+import com.company.commons.Component;
 import com.company.commons.CustomBoxDrawHelper;
 import com.company.view.View;
 import com.googlecode.lanterna.TerminalPosition;
@@ -10,21 +11,21 @@ import java.util.Comparator;
 
 import static com.company.commons.DrawingHelper.drawAsciiArt;
 
-public class Button {
-    private final String[] label;
+public class Button extends Component {
     private final View view;
-    private TerminalPosition terminalPosition;
 
     public Button(String[] label, View view) {
         this.label = label;
         this.view = view;
     }
 
+    @Override
     public void display() {
         drawAsciiArt(new TerminalPosition(terminalPosition.getColumn() + 2, terminalPosition.getRow()), label);
     }
 
-    public void markButton() {
+    @Override
+    public void mark() {
         CustomBoxDrawHelper.drawCustomBox(terminalPosition, label.length + 1, getLabelLength() + 3);
     }
 
