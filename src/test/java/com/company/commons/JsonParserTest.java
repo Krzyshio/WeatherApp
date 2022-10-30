@@ -82,7 +82,7 @@ class JsonParserTest {
         Assertions.assertNotNull(city);
         Assertions.assertEquals(3163858, city.getId());
         Assertions.assertEquals("Zocca", city.getName());
-        Assertions.assertEquals(new Coordinate(44.34,10.99), city.getCoord());
+        Assertions.assertEquals(new Coordinate(44.34, 10.99), city.getCoord());
         Assertions.assertEquals("IT", city.getCountry());
         Assertions.assertEquals(4593, city.getPopulation());
         Assertions.assertEquals(7200, city.getTimezone());

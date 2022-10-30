@@ -1,4 +1,3 @@
-
 package com.company.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;

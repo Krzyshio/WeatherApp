@@ -67,6 +67,7 @@ public enum WeatherTypeIcon implements Icon {
         public void draw(TerminalPosition terminalPosition) {
             drawCloud(new TerminalPosition(terminalPosition.getColumn(), terminalPosition.getRow()));
         }
+
         @Override
         public Integer getLength() {
             return DEFAULT_ICON_SIZE;
@@ -78,6 +79,7 @@ public enum WeatherTypeIcon implements Icon {
             drawCloud(new TerminalPosition(terminalPosition.getColumn() + 3, terminalPosition.getRow() - 1));
             drawCloud(new TerminalPosition(terminalPosition.getColumn(), terminalPosition.getRow()));
         }
+
         @Override
         public Integer getLength() {
             return DEFAULT_ICON_SIZE;
@@ -90,6 +92,7 @@ public enum WeatherTypeIcon implements Icon {
             drawCloud(new TerminalPosition(terminalPosition.getColumn(), terminalPosition.getRow()));
             drawRain(new TerminalPosition(terminalPosition.getColumn() + 3, terminalPosition.getRow() + 3));
         }
+
         @Override
         public Integer getLength() {
             return DEFAULT_ICON_SIZE;
@@ -101,6 +104,7 @@ public enum WeatherTypeIcon implements Icon {
             drawCloud(new TerminalPosition(terminalPosition.getColumn() + 3, terminalPosition.getRow()));
             drawRain(new TerminalPosition(terminalPosition.getColumn() + 3, terminalPosition.getRow() + 3));
         }
+
         @Override
         public Integer getLength() {
             return DEFAULT_ICON_SIZE;
@@ -114,6 +118,7 @@ public enum WeatherTypeIcon implements Icon {
             drawRain(new TerminalPosition(terminalPosition.getColumn() + 3, terminalPosition.getRow() + 3));
             drawSomeBolts(terminalPosition);
         }
+
         @Override
         public Integer getLength() {
             return DEFAULT_ICON_SIZE;
@@ -126,6 +131,7 @@ public enum WeatherTypeIcon implements Icon {
             drawCloud(new TerminalPosition(terminalPosition.getColumn() + 3, terminalPosition.getRow()));
             drawSnow(new TerminalPosition(terminalPosition.getColumn() + 3, terminalPosition.getRow() + 3));
         }
+
         @Override
         public Integer getLength() {
             return DEFAULT_ICON_SIZE;
@@ -152,6 +158,7 @@ public enum WeatherTypeIcon implements Icon {
                         ViewManager.getTextGraphics().putString(terminalPosition.getColumn(), terminalPosition.getRow() + i.get(), line, SGR.BOLD);
                     });
         }
+
         @Override
         public Integer getLength() {
             return 12;

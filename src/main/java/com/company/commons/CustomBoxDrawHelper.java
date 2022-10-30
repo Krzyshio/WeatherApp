@@ -28,13 +28,13 @@ public class CustomBoxDrawHelper {
     }
 
     private static void drawBoxEdges(TerminalPosition terminalPosition, Integer height, Integer width) {
-        ViewManager.getTextGraphics().setCharacter(terminalPosition.getColumn(),terminalPosition.getRow(), '┌');
-        ViewManager.getTextGraphics().setCharacter(terminalPosition.getColumn() + width,terminalPosition.getRow(), '┐');
-        ViewManager.getTextGraphics().setCharacter(terminalPosition.getColumn(),terminalPosition.getRow() + height, '└');
-        ViewManager.getTextGraphics().setCharacter(terminalPosition.getColumn() + width,terminalPosition.getRow() + height, '┘');
+        ViewManager.getTextGraphics().setCharacter(terminalPosition.getColumn(), terminalPosition.getRow(), '┌');
+        ViewManager.getTextGraphics().setCharacter(terminalPosition.getColumn() + width, terminalPosition.getRow(), '┐');
+        ViewManager.getTextGraphics().setCharacter(terminalPosition.getColumn(), terminalPosition.getRow() + height, '└');
+        ViewManager.getTextGraphics().setCharacter(terminalPosition.getColumn() + width, terminalPosition.getRow() + height, '┘');
     }
 
-    private CustomBoxDrawHelper(){
+    private CustomBoxDrawHelper() {
 
     }
 

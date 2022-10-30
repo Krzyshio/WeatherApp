@@ -5,7 +5,6 @@ import com.company.entity.Forecast;
 import com.company.service.WeatherService;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextColor;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.IOException;
@@ -14,6 +13,8 @@ import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.company.commons.CustomBoxDrawHelper.drawCustomBox;
+import static com.company.view.ViewManager.getAppMainColour;
+import static com.company.view.ViewManager.getAppSecondColour;
 
 public class WeatherOverview implements View {
     private static final Integer DEFAULT_BOX_HEIGHT = 15;
@@ -77,21 +78,21 @@ public class WeatherOverview implements View {
     }
 
     private static void drawTemp(TerminalPosition terminalPosition, Forecast forecast) {
-        ViewManager.getTextGraphics().putString(terminalPosition.getColumn(), terminalPosition.getRow(),"Temp: " + forecast.getMain().getTemp().toString() + "°C");
+        ViewManager.getTextGraphics().putString(terminalPosition.getColumn(), terminalPosition.getRow(), "Temp: " + forecast.getMain().getTemp().toString() + "°C");
     }
 
     private static void drawPressure(TerminalPosition terminalPosition, Forecast forecast) {
-        ViewManager.getTextGraphics().putString(terminalPosition.getColumn(), terminalPosition.getRow(),"Pressure: " + forecast.getMain().getPressure().toString() + "hPa");
+        ViewManager.getTextGraphics().putString(terminalPosition.getColumn(), terminalPosition.getRow(), "Pressure: " + forecast.getMain().getPressure().toString() + "hPa");
     }
 
     private static void drawHumidity(TerminalPosition terminalPosition, Forecast forecast) {
-        ViewManager.getTextGraphics().putString(terminalPosition.getColumn(), terminalPosition.getRow(),"Humidity: " + forecast.getMain().getHumidity().toString() + "%");
+        ViewManager.getTextGraphics().putString(terminalPosition.getColumn(), terminalPosition.getRow(), "Humidity: " + forecast.getMain().getHumidity().toString() + "%");
     }
 
 
     private static void drawWeatherDetailsContainer(TerminalPosition terminalPosition, Forecast forecast) {
 
-        ViewManager.getTextGraphics().setForegroundColor(TextColor.ANSI.GREEN_BRIGHT);
+        ViewManager.getTextGraphics().setForegroundColor(getAppMainColour());
         drawCustomBox(new TerminalPosition(terminalPosition.getColumn(), terminalPosition.getRow()), DEFAULT_BOX_HEIGHT, DEFAULT_SECTION_WIDTH);
         ViewManager.getTextGraphics().putCSIStyledString(new TerminalPosition(terminalPosition.getColumn() + 12,
                 terminalPosition.getRow() + 2), convertDtToDate(forecast.getDt()).toString());
@@ -99,7 +100,7 @@ public class WeatherOverview implements View {
 
         forecast.getWeather().get(0).getIcon().draw(new TerminalPosition(terminalPosition.getColumn() + 2, terminalPosition.getRow() + 6));
 
-        ViewManager.getTextGraphics().setForegroundColor(TextColor.ANSI.BLUE_BRIGHT);
+        ViewManager.getTextGraphics().setForegroundColor(getAppSecondColour());
         drawWeatherDescription(new TerminalPosition(terminalPosition.getColumn() + 15, terminalPosition.getRow() + 6), forecast);
         drawTemp(new TerminalPosition(terminalPosition.getColumn() + 15, terminalPosition.getRow() + 7), forecast);
         drawPressure(new TerminalPosition(terminalPosition.getColumn() + 15, terminalPosition.getRow() + 8), forecast);

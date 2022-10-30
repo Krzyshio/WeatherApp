@@ -24,7 +24,7 @@ public class JsonParser {
             Gson gson = gsonBuilder.create();
             forecasts = gson.fromJson(list, Forecast[].class);
 
-        } catch (JSONException | JsonSyntaxException | NullPointerException e ) {
+        } catch (JSONException | JsonSyntaxException | NullPointerException e) {
             System.out.println("getMessage(): " + e.getMessage());
             e.printStackTrace();
             forecasts = new Forecast[0];
@@ -44,7 +44,7 @@ public class JsonParser {
             Gson gson = gsonBuilder.create();
             city = gson.fromJson(cityResponse, City.class);
 
-        } catch (JSONException | JsonSyntaxException | NullPointerException e ) {
+        } catch (JSONException | JsonSyntaxException | NullPointerException e) {
             System.out.println("getMessage(): " + e.getMessage());
             e.printStackTrace();
             city = new City();

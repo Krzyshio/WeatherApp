@@ -28,7 +28,6 @@ public class LocalisationService {
 
     public String fetchDefaultCoordinates() {
         URL localisationRequestURL = buildLocalisationUrl();
-
         return SendGetRequestService.sendGetRequestAndGetResponse(localisationRequestURL);
     }
 }

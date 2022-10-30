@@ -4,8 +4,7 @@ public enum RequestLabel {
     LATITUDE("lat"),
     LONGITUDE("lon"),
     UNITS("units"),
-    APP_ID("appid")
-    ;
+    APP_ID("appid");
 
     private final String text;
 

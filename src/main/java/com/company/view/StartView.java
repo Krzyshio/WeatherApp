@@ -4,7 +4,6 @@ import com.company.button.Button;
 import com.company.icon.WeatherTypeIcon;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 
@@ -16,8 +15,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.company.commons.DrawingHelper.drawAsciiArt;
 import static com.company.commons.DrawingHelper.drawTerminalOverlay;
+import static com.company.view.ViewManager.getAppMainColour;
 
-public class StartView implements View{
+public class StartView implements View {
 
     private static final Integer DEFAULT_HEADER_POSITION_Y = 3;
     private static final Integer DEFAULT_BUTTONS_PADDING = 10;
@@ -27,8 +27,6 @@ public class StartView implements View{
     private static final Map<Integer, Button> buttons = new HashMap<>();
     private static boolean isStartViewActive = true;
     private static KeyStroke actualKey;
-
-
     private static final String[] HEADER = {
             " ▄         ▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄         ▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄          ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄",
             "▐░▌       ▐░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░▌       ▐░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌        ▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌",
@@ -83,13 +81,14 @@ public class StartView implements View{
             "███████ ██   ██ ██    ██   "
     };
 
-    private static void drawMenuButtons(TerminalSize terminalSize) {
-
+    static {
         buttons.put(0, new Button(WEATHER_DETAILS_LABEL, new WeatherOverview()));
         buttons.put(1, new Button(WEATHER_CHART_LABEL, new WeatherOverview()));
         buttons.put(2, new Button(SETTINGS_LABEL, new SettingsView()));
         buttons.put(3, new Button(EXIT_LABEL, new WeatherOverview()));
+    }
 
+    private static void drawMenuButtons(TerminalSize terminalSize) {
         refreshButtonsPositions(terminalSize);
         buttons.values().forEach(Button::display);
         buttons.get(activeButton).mark();
@@ -121,30 +120,31 @@ public class StartView implements View{
         });
     }
 
-    private static void manageActiveButtonPosition(KeyStroke keyStroke) {
-        if (keyStroke == null)
+    private static void manageActiveButtonPosition() {
+        if (actualKey == null)
             return;
-        if (keyStroke.getKeyType() == KeyType.ArrowDown) {
+        if (actualKey.getKeyType() == KeyType.ArrowDown) {
             activeButton = activeButton < buttons.size() - 1 ? activeButton + 1 : 0;
         }
-        if (keyStroke.getKeyType() == KeyType.ArrowUp) {
+        if (actualKey.getKeyType() == KeyType.ArrowUp) {
             activeButton = activeButton > 0 ? activeButton - 1 : buttons.size() - 1;
         }
     }
 
-    private static void manageMenuClickEvent(KeyStroke keyStroke) throws IOException, InterruptedException {
-        if (keyStroke == null)
+    private static void manageMenuClickEvent() throws IOException, InterruptedException {
+        if (actualKey == null)
             return;
-        if (keyStroke.getKeyType() == KeyType.Enter) {
+        if (actualKey.getKeyType() == KeyType.Enter) {
             buttons.get(activeButton).click();
         }
     }
 
     private static void checkIfViewShouldBeActive() {
-        if(actualKey != null && (actualKey.getKeyType().equals(KeyType.Escape) || isExitButtonSelected())) {
+        if (actualKey != null && (actualKey.getKeyType().equals(KeyType.Escape) || isExitButtonSelected())) {
             isStartViewActive = false;
         }
     }
+
     private static boolean isExitButtonSelected() {
         return actualKey != null && activeButton.equals(3) && actualKey.getKeyType().equals(KeyType.Enter);
     }
@@ -157,19 +157,20 @@ public class StartView implements View{
             TerminalSize terminalSize = ViewManager.getTerminal().getTerminalSize();
             ViewManager.getTerminal().clearScreen();
             drawAnimatedIcons(new TerminalPosition(0, 25), delta.getAndIncrement());
-            ViewManager.getTextGraphics().setForegroundColor(TextColor.ANSI.GREEN_BRIGHT);
+            ViewManager.getTextGraphics().setForegroundColor(getAppMainColour());
             drawAsciiArt(new TerminalPosition((terminalSize.getColumns() - SELECT_OPTIONS_LABEL[0].length()) / 2, DEFAULT_SELECT_OPTIONS_LABEL_POSITION_Y), SELECT_OPTIONS_LABEL);
             drawAsciiArt(new TerminalPosition((terminalSize.getColumns() - HEADER[0].length()) / 2, DEFAULT_HEADER_POSITION_Y), HEADER);
-            ViewManager.getTextGraphics().setForegroundColor(TextColor.ANSI.GREEN_BRIGHT);
+            ViewManager.getTextGraphics().setForegroundColor(getAppMainColour());
             drawTerminalOverlay();
             drawMenuButtons(terminalSize);
-            manageActiveButtonPosition(actualKey);
-            manageMenuClickEvent(actualKey);
+            manageActiveButtonPosition();
+            manageMenuClickEvent();
             actualKey = ViewManager.getTerminal().pollInput();
             checkIfViewShouldBeActive();
             ViewManager.getTerminal().flush();
             //todo refactor busy-waiting
             Thread.sleep(100);
         }
+        isStartViewActive = true;
     }
 }

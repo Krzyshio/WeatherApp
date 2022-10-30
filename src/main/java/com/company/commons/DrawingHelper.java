@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static com.company.view.ViewManager.getAppMainColour;
+import static com.company.view.ViewManager.getAppSecondColour;
+
 public class DrawingHelper {
 
     public static void drawAsciiArt(TerminalPosition terminalPosition, String[] asciiArt) {
@@ -23,7 +26,7 @@ public class DrawingHelper {
     }
 
     public static void drawTerminalOverlay() throws IOException {
-        ViewManager.getTextGraphics().setForegroundColor(TextColor.ANSI.GREEN_BRIGHT);
+        ViewManager.getTextGraphics().setForegroundColor(getAppSecondColour());
 
         TerminalSize terminalSize = ViewManager.getTerminal().getTerminalSize();
         ViewManager.getTextGraphics().drawRectangle(new TerminalPosition(0, 0), terminalSize, '█');
@@ -32,7 +35,7 @@ public class DrawingHelper {
     }
 
     public static void drawSomeBolts(TerminalPosition terminalPosition) {
-        ViewManager.getTextGraphics().setForegroundColor(TextColor.ANSI.YELLOW_BRIGHT);
+        ViewManager.getTextGraphics().setForegroundColor(getAppMainColour());
         ViewManager.getTextGraphics().setCharacter(terminalPosition.getColumn() + 5, terminalPosition.getRow() + 4, '⚡');
         ViewManager.getTextGraphics().setCharacter(terminalPosition.getColumn() + 8, terminalPosition.getRow() + 4, '⚡');
         ViewManager.getTextGraphics().setCharacter(terminalPosition.getColumn() + 7, terminalPosition.getRow() + 5, '⚡');
