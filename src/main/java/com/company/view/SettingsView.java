@@ -150,7 +150,7 @@ public class SettingsView implements View {
         }
     }
 
-    private static void setDefaultPickersColours() {
+    private static void setDefaultColoursOfColourPickers() {
         if (settingComponents.get(0) instanceof ColourPicker colourPicker)
             colourPicker.setSelectedColour(getAppMainColour());
         if (settingComponents.get(1) instanceof ColourPicker colourPicker)
@@ -166,7 +166,7 @@ public class SettingsView implements View {
     }
 
     private static void drawSettingsView() throws IOException, InterruptedException {
-        setDefaultPickersColours();
+        setDefaultColoursOfColourPickers();
         ViewManager.getTerminal().clearScreen();
         ViewManager.getTerminal().flush();
         setSaveButtonClickEvent();

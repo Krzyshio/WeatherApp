@@ -35,6 +35,7 @@ public class DrawingHelper {
     }
 
     public static void drawSomeBolts(TerminalPosition terminalPosition) {
+        ViewManager.getTextGraphics().setForegroundColor(TextColor.ANSI.YELLOW_BRIGHT);
         ViewManager.getTextGraphics().setForegroundColor(getAppMainColour());
         ViewManager.getTextGraphics().setCharacter(terminalPosition.getColumn() + 5, terminalPosition.getRow() + 4, '⚡');
         ViewManager.getTextGraphics().setCharacter(terminalPosition.getColumn() + 8, terminalPosition.getRow() + 4, '⚡');
