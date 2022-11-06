@@ -83,7 +83,7 @@ public class StartView implements View {
 
     static {
         buttons.put(0, new NavigateToViewButton(WEATHER_DETAILS_LABEL, new WeatherOverview()));
-        buttons.put(1, new NavigateToViewButton(WEATHER_CHART_LABEL, new WeatherOverview()));
+        buttons.put(1, new NavigateToViewButton(WEATHER_CHART_LABEL, new WeatherChartsView()));
         buttons.put(2, new NavigateToViewButton(SETTINGS_LABEL, new SettingsView()));
         buttons.put(3, new NavigateToViewButton(EXIT_LABEL, new WeatherOverview()));
     }
