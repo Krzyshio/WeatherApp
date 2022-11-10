@@ -18,7 +18,7 @@ asdasdasdasdasdas123123123
         System.out.println(Arrays.toString(JsonParser.parseForecast(jsonString)));
         System.out.println(JsonParser.parseCity(jsonString));
 
-        ViewManager viewManager = new ViewManager();
+        ViewManager viewManager = new ViewManager();asdasdasa
         viewManager.display();
     }
 }
