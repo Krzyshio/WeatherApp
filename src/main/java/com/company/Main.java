@@ -10,8 +10,8 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
-        LocalisationService loc = new LocalisationService();
-
+        LocalisationServisce loc = new LocalisationService();
+asdasdasdasdasdas123123123
         WeatherService weatherService = new WeatherService("1", "5");
         String jsonString = weatherService.fetchForecast();
 
