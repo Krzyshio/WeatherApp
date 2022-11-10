@@ -11,7 +11,6 @@ public class Main {
 
     public static void main(String[] args) {
         LocalisationService loc = new LocalisationService();
-        String local = loc.fetchDefaultCoordinates();
 
         WeatherService weatherService = new WeatherService("1", "5");
         String jsonString = weatherService.fetchForecast();
